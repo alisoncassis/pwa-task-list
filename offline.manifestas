@@ -1,0 +1,12 @@
+CACHE MANIFEST
+
+#v2
+
+CACHE:
+public/css/main.css
+public/js/lib/eventemitter2.js
+public/js/login/auth.js
+public/js/login/main.js
+
+NETWORK:
+*

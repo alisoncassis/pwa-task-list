@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>Task list PWA</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li class=""><button id="logout" class="btn btn-default">Logout</button></li>
+        </ul>
+        <h3 class="text-muted">Task list</h3>
+    </div>
+    <div class="container text-center">
+        <div class="login">
+            <form id="login_form">
+                <label for="username">
+                    Qual seu nome?
+                    <input autofocus type="text" name="username" id="username" required>
+                </label>
+                <button type="submit" class="btn btn-primary">Logar</button>
+            </form>
+        </div>
+        <div class="content">
+            <h1>Welcome to your PWA task list</h1>
+            <div>
+                <form id="task_form">
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 col-form-label label-input mt-10">New Task:</label>
+                        <div class="input-group">
+                            <textarea autofocus type="text" class="form-control" id="description" placeholder="Task description"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" type="submit">Add</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tasks-wrapper"></div>
+        </div>
+    </div>
+    <script src="/js/sw.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

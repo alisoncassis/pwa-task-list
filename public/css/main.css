@@ -1,0 +1,47 @@
+.container {
+    margin-top: 50px;
+}
+
+.content {
+    display: none;
+}
+
+.content.show {
+    display: block;
+}
+
+.login.hide {
+    display: none;
+}
+
+.header {
+    border-bottom: 1px solid #e5e5e5;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.lead {
+    margin-top: 10px;
+    word-wrap: break-word;
+}
+
+.task {
+    align-items: center;
+    background: rgba(236, 236, 236, 0.93);
+    border-radius: 30px;
+    display: flex;
+    padding: 0 15px;
+    margin: 25px auto;
+}
+
+.task-img {
+    width: 15%;
+}
+
+.btn-danger {
+    padding: 6px 8px;
+}
