@@ -1,0 +1,57 @@
+//
+<html lang="pt-br" manifest="offline.manifest">
+
+//
+<head>
+    <link rel="manifest" href="app.manifest">
+
+//
+sw.js
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-workers.js').then(function(reg) {
+        console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+        console.log('Error whilst registering service worker', err);
+    });
+}
+
+//
+service-workers.js
+
+self.addEventListener("install", function(){
+    console.log("Instalou")
+})
+
+self.addEventListener("activate", function(){
+    caches.open("task-imgs-" + version).then(cache => {
+        cache.addAll(files)
+            .then(function(){
+                caches.delete("task-imgs-" + (version - 1 ))
+                caches.delete("task-imgs")
+            })
+    })
+})
+
+
+self.addEventListener("fetch", function(event){
+    let request = event.request
+    let promiseResponse = caches.match(request).then(cachedResponse => {
+        let response = cachedResponse ? cachedResponse : fetch(request)
+        return response
+    })
+
+    event.respondWith(promiseResponse)
+
+})
+
+//
+main.js addTask()
+
+if(src) {
+    fetch(src, {mode: 'no-cors'}).then(response => {
+        caches.open('task-imgs').then(cache => {
+            cache.put(src, response)
+        })
+    })
+}

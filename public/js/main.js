@@ -31,17 +31,11 @@ function removeTask(text, src) {
 
 function addTask() {
     const value = description.value
-    const text = value.replace(value.match(/\[(.*?)\]/g)[0], '') || value
-    const src = value.match(/\[(.*?)\]/g)[0].replace('[', '').replace(']', '') || ''
+    const text = value.replace(value.match(/\[(.*?)\]/g) != undefined ? value.match(/\[(.*?)\]/g)[0] : '', '')
+    const src = value.match(/\[(.*?)\]/g) != undefined ? value.match(/\[(.*?)\]/g)[0].replace('[', '').replace(']', '') : ''
     tasks.push({text, src})
     localStorage.setItem(user, JSON.stringify(tasks))
-    if(src) {
-        fetch(src, {mode: 'no-cors'}).then(response => {
-            caches.open('task-imgs').then(cache => {
-                cache.put(src, response)
-            })
-        })
-    }
+//add to cache
     description.value = ''
     tasksWrapper.innerHTML += mountElement({text, src})
     return false
