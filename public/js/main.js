@@ -35,7 +35,13 @@ function addTask() {
     const src = value.match(/\[(.*?)\]/g) != undefined ? value.match(/\[(.*?)\]/g)[0].replace('[', '').replace(']', '') : ''
     tasks.push({text, src})
     localStorage.setItem(user, JSON.stringify(tasks))
-//add to cache
+    if(src) {
+        fetch(src, {mode: 'no-cors'}).then(response => {
+            caches.open('task-imgs').then(cache => {
+                cache.put(src, response)
+            })
+        })
+    }
     description.value = ''
     tasksWrapper.innerHTML += mountElement({text, src})
     return false
