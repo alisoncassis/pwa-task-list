@@ -31,21 +31,27 @@ function removeTask(text, src) {
 
 function addTask() {
     const value = description.value
-    const text = value.substr(0, value.indexOf('[') - 1) || value
-    const src = value.substr(value.indexOf('[') + 1, value.indexOf(']') - 1) || ''
+    const text = value.replace(value.match(/\[(.*?)\]/g)[0], '') || value
+    const src = value.match(/\[(.*?)\]/g)[0].replace('[', '').replace(']', '') || ''
     tasks.push({text, src})
     localStorage.setItem(user, JSON.stringify(tasks))
+    if(src) {
+        fetch(src, {mode: 'no-cors'}).then(response => {
+            caches.open('task-imgs').then(cache => {
+                cache.put(src, response)
+            })
+        })
+    }
     description.value = ''
     tasksWrapper.innerHTML += mountElement({text, src})
     return false
 }
 
 function previousTasks() {
-    tasks = JSON.parse(localStorage.getItem(user) || '[]');
+    tasks = JSON.parse(localStorage.getItem(user)) || [];
 }
 
 function mountTasks() {
-    console.log(tasks)
     tasks.forEach(task => {
         tasksWrapper.innerHTML += mountElement(task)
     })
@@ -53,11 +59,11 @@ function mountTasks() {
 
 function mountElement(task) {
     const element = `<div class="task">
-        <p class="lead col-xs-8 task-text">${task.text}</p>
-        <img class="task-img" src="${task.src != '' ? task.src : ''}" />
-        <div class="text-right col-xs-4">
-            <button type="button" class="btn btn-danger btn-remove">Remove</button>
-        </div>
-    </div>`
+                        <p class="lead col-xs-8 task-text">${task.text}</p>
+                        <img class="task-img" src="${task.src != '' ? task.src : ''}" />
+                        <div class="text-right col-xs-4">
+                            <button type="button" class="btn btn-danger btn-remove">Remove</button>
+                        </div>
+                    </div>`
     return element
 }

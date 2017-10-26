@@ -1,0 +1,13 @@
+CACHE MANIFEST
+
+#v10
+
+CACHE:
+/css/main.css
+/css/bootstrap.min.css
+/js/auth.js
+/js/main.js
+/imgs/logo16x16.png
+
+NETWORK:
+*

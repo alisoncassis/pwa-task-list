@@ -4,8 +4,10 @@ const path = require('path');
 
 app.use(express.static('./public'));
 
-app.all('/*', function(req, res) {
-    res.sendFile(path.resolve('public/index.html'));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 module.exports = app;
